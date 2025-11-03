@@ -11,8 +11,10 @@ import moodRoutes from "./route/moodRoute.js";
 
 dotenv.config();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
+
+const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
@@ -29,9 +31,10 @@ app.use("/api/moodroute", moodRoutes);
 
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-// Catch-all
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend" , "dist" , "index.html"));
+// Catch-all (serve frontend single-page app)
+// Fallback - serve frontend app for any unmatched route
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
 });
 
 
