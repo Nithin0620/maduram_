@@ -4,7 +4,7 @@ import {
   analyzeMood,
   getUserMoods,
   voiceToText,
-} from "../controllers/moodController.js";
+} from "../controller/moodController.js";
 
 const router = express.Router();
 
